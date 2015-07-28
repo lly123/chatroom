@@ -1,10 +1,11 @@
+var http = require('http');
 var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
 var routes = require('./routes/index');
+var chat = require('./modules/chat');
 
 var app = express();
 
@@ -32,4 +33,6 @@ app.use(function(err, req, res, next) {
   res.end('Error.');
 });
 
-app.listen(3000);
+var server = http.Server(app);
+chat.listen(server);
+server.listen(3000);

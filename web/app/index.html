@@ -4,11 +4,12 @@
     <meta charset="utf-8">
     <title>web</title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="shortcut icon" href="/favicon.ico">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -16,14 +17,51 @@
     <!-- endbuild -->
 </head>
 
-<body data-ng-app="chatRoom">
-{{'Hello'}}
+<body data-ng-app="chatRoom" data-ng-controller="MainController" class="container">
+<div class="row">
+    <div class="col-xs-10 col-xs-offset-1">
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="chatRoomNames"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                {{currentRoom}}&nbsp;<span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="chatRoomNames">
+                <li data-ng-repeat="roomName in roomNames"><a href="#" data-ng-click="$parent.currentRoom = roomName">{{roomName}}</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-10 col-xs-offset-1">
+        <div class="input-group">
+            <span class="input-group-addon" id="nick-name">Nick Name:</span>
+            <input type="text" class="form-control" placeholder="" aria-describedby="nick-name" data-ng-model="nickName">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-10 col-xs-offset-1">
+        <textarea data-ng-model="content"></textarea>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-10 col-xs-offset-1">
+        <div class="input-group">
+            <span class="input-group-addon" id="say">Say:</span>
+            <input type="text" class="form-control" placeholder="" aria-describedby="say" data-ng-model="something">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button" data-ng-click="say()">Go!</button>
+            </span>
+        </div>
+    </div>
+</div>
 </body>
 
 <!-- build:js(.) scripts/vendor.js -->
 <!-- bower:js -->
 <script src="bower_components/jquery/dist/jquery.js"></script>
 <script src="bower_components/angularjs/angular.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="bower_components/socket.io-client/socket.io.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
