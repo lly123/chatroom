@@ -22,11 +22,11 @@
     <div class="col-xs-10 col-xs-offset-1">
         <div class="dropdown">
             <button class="btn btn-default dropdown-toggle" type="button" id="chatRoomNames"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                {{currentRoom}}&nbsp;<span class="caret"></span>
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-ng-bind="currentRoom">
+                &nbsp;<span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="chatRoomNames">
-                <li data-ng-repeat="roomName in roomNames"><a href="#" data-ng-click="$parent.currentRoom = roomName">{{roomName}}</a></li>
+                <li data-ng-repeat="roomName in roomNames"><a href="#" data-ng-click="setCurrentRoom(roomName)">{{roomName}}</a></li>
             </ul>
         </div>
     </div>

@@ -15,8 +15,21 @@ module.exports = exports = function (server) {
 
         socket.on('join', function (opts) {
             users[userId] = opts;
-            socket.broadcast.emit('message', 'User ' + opts.nickName.red + ' has joined.');
-            console.log(opts.nickName + ' has joined.');
+            socket.join(opts.room);
+            socket.broadcast.emit('message', opts.nickName.red + ' has joined.');
+        });
+
+        socket.on('message', function (msg) {
+            io.to(users[userId].room).emit('message', msg);
+        });
+
+        socket.on('change room', function (room) {
+            socket.leave(users[userId].room);
+            io.to(users[userId].room).emit('message', users[userId].nickName.red + ' has left.');
+
+            users[userId].room = room;
+            socket.join(room);
+            io.to(room).emit('message', users[userId].nickName.red + ' has joined.');
         });
     });
 };

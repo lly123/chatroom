@@ -21,7 +21,12 @@
             });
 
             $scope.say = function () {
-                console.log('>>> ', $scope.currentRoom, $scope.nickName, $scope.something);
-            }
+                socket.emit('message', $scope.something);
+            };
+
+            $scope.setCurrentRoom = function (room) {
+                $scope.currentRoom = room;
+                socket.emit('change room', room);
+            };
         }]);
 })(window);
