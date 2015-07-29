@@ -1,13 +1,13 @@
-var http = require('http');
 var express = require('express');
+var app = express();
+var server = require('http').Server(app);
+
 var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var routes = require('./routes/index');
-var chat = require('./modules/chat');
-
-var app = express();
+var chat = require('./modules/chat')(server);
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -33,6 +33,4 @@ app.use(function(err, req, res, next) {
   res.end('Error.');
 });
 
-var server = http.Server(app);
-chat.listen(server);
 server.listen(3000);
